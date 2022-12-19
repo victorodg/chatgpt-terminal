@@ -1,0 +1,29 @@
+#!/usr/bin/env python3
+
+import requests
+
+def generate_text(prompt):
+
+    model = 'text-davinci-003'
+    api_key = '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'
+    endpoint = "https://api.openai.com/v1/completions"
+    headers = {
+        "Authorization": f"Bearer {api_key}",
+        "Content-Type": "application/json",
+    }
+
+    data = {
+        "model": model,
+        "prompt": prompt,
+        "max_tokens": 4000,
+    }
+
+    response = requests.post(endpoint, headers=headers, json=data)
+
+    text = response.json()['choices'][0]['text']
+
+    return text
+
+prompt = input('-> ')
+
+print(generate_text(prompt))
